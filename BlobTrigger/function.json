@@ -1,0 +1,12 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "name": "myblob",
+      "type": "blobTrigger",
+      "direction": "in",
+      "path": "test-container/{name}",
+      "connection": "yamamotoblobtestrga338_STORAGE"
+    }
+  ]
+}
