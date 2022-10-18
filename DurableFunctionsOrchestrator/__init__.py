@@ -6,17 +6,22 @@
 # - add azure-functions-durable to requirements.txt
 # - run pip install -r requirements.txt
 
-import logging
-import json
 
-import azure.functions as func
+import logging
 import azure.durable_functions as df
 
+job_manager_file = None
 
 def orchestrator_function(context: df.DurableOrchestrationContext):
-    result1 = yield context.call_activity('Hello', "Tokyo")
-    result2 = yield context.call_activity('Hello', "Seattle")
-    result3 = yield context.call_activity('Hello', "London")
-    return [result1, result2, result3]
+
+    logging.info('DurableFunctionsOrchestrator() -start')
+    logging.info(f'input object is [{context.get_input()}]')
+
+    result1 = yield context.call_activity('CheckJob', context.get_input())
+    result2 = yield context.call_activity('GetBlob', result1)
+    result3 = yield context.call_activity('SaveBlob', result2)
+
+    logging.info(f"result[{result3}]")
+    return result3
 
 main = df.Orchestrator.create(orchestrator_function)
