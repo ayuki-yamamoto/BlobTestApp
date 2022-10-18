@@ -1,6 +1,6 @@
 """Timer Trigger
 
-Call an Orchestrator function periodically
+オーケストレーター関数を呼び出す
 
 Attributes:
     orchestrator_name(str): Orchestrator function name
